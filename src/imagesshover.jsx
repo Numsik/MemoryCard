@@ -28,6 +28,7 @@ function Picture() {
     const [clickedis, setClickedIs] = useState([])
     const [deck, setDeck] = useState([...images])
     const [score, setScore] = useState(0)
+    const [win, SetWin] = useState(false);
 
 
     function shuffle(arrray){
@@ -37,6 +38,14 @@ function Picture() {
         }
         return arrray;
     }
+    function funcwin(){
+        console.log("juuuj")
+        SetWin(false)
+        setClickedIs([])
+        setBestScore(0)
+        setScore(0)
+    }
+
 
     function handleclick(id){
         if(clickedis.includes(id)){
@@ -47,34 +56,33 @@ function Picture() {
              setScore(prev => {
                 const newScore = prev + 1
                 setBestScore(best => Math.max(best, newScore))
+                
+                if (newScore === 10) {
+                    SetWin(true);
+                }
+                
                 return newScore;
-
              });
            
         }
         setDeck(shuffle([...deck]))
-        
-        
     }
-    useEffect(() =>{
-        if (bestscore === 10){
-        
-        setBestScore(0)
-        setClickedIs([])
-        setDeck(shuffle([...deck]))
-        return(<>
-        <div className="fixed">
-            <h1>You win</h1>
-        </div>
-        </>)
-        }
-    }, [bestscore])
-
 
   return (
     <>
+    {win && (
+        <div>
+            <div className="overplay"></div>
+
+            <div className="win">
+                <h1>You win!</h1>
+                <button onClick={funcwin}>Play Again</button>
+            </div>
+        </div>
+
+    )}
     <div className="flex">
-        <h1>Remeber Game</h1>
+        <h1 className="nadpis">Remeber Game</h1>
         <div>
             <p>Score: {score}</p>
             <p>Best Score: {bestscore}</p>
@@ -86,7 +94,6 @@ function Picture() {
         {deck.map((img) => (
         <div key={img.id}>
           <img src={img.src} alt={img.name} onClick={() => handleclick(img.id)} />
-          <p>{img.name} – ID: {img.id}</p>
         </div>
       ))}
     </div>

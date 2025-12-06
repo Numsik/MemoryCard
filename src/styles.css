@@ -1,14 +1,22 @@
 body{
     background-color: rgb(48, 48, 48);
+    font-family:Verdana, Geneva, Tahoma, sans-serif
 }
 p ,h1{
     color: white;
 }
+.nadpis{
+    font-size: 60px;
+}
 img {
   width: 100%;
-  height: 300px; 
+  height: 350px; 
   object-fit: cover;
   border-radius: 10px;
+  transition: box-shadow 500ms ease-in-out;
+}
+img:hover{
+    box-shadow: 0 0 20px rgb(167, 167, 167);
 }
 .grid {
   display: grid;
@@ -20,4 +28,41 @@ img {
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
+}
+button{
+    width: 100px;
+    height: 50px;
+    border-radius: 30px;
+    border: none;
+    color: rgb(255, 255, 255);
+    background-color: black;
+    transition: box-shadow 500ms ease;
+
+}
+button:hover{
+    box-shadow: 0 0 10px rgb(153, 153, 153);
+}
+.win{
+    height: 200px;
+    width: 600px;
+    background-color: rgb(85, 85, 85);
+    color: white;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 100px rgb(182, 182, 182);
+    border-radius: 20px;
+    padding: 20px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.overplay{
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(15px);
+    z-index: 9998;
 }
