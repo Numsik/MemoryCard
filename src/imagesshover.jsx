@@ -26,38 +26,72 @@ const images = [
 function Picture() {
     const [bestscore , setBestScore] = useState(0)
     const [clickedis, setClickedIs] = useState([])
+    const [deck, setDeck] = useState([...images])
+    const [score, setScore] = useState(0)
+
+
+    function shuffle(arrray){
+        for(let i = arrray.length - 1; i > 0;i --){
+            const j = Math.floor(Math.random() * (i + 1));
+            [arrray[i], arrray[j]] = [arrray[j], arrray[i]];
+        }
+        return arrray;
+    }
+
     function handleclick(id){
         if(clickedis.includes(id)){
-            setBestScore(0)
-            setClickedIs([])
+            setScore(0);
+            setClickedIs([]);
         }else{
-            setClickedIs((prev) => [...prev, id])
-            setBestScore(s => s + 1)
+            setClickedIs((prev) => [...prev, id]);
+             setScore(prev => {
+                const newScore = prev + 1
+                setBestScore(best => Math.max(best, newScore))
+                return newScore;
+
+             });
+           
         }
+        setDeck(shuffle([...deck]))
         
         
     }
     useEffect(() =>{
         if (bestscore === 10){
-        console.log("You win")
+        
         setBestScore(0)
         setClickedIs([])
+        setDeck(shuffle([...deck]))
+        return(<>
+        <div className="fixed">
+            <h1>You win</h1>
+        </div>
+        </>)
         }
     }, [bestscore])
 
 
   return (
     <>
-      <h1>Remeber Game</h1>
-      <p>Best Score: {bestscore}</p>
+    <div className="flex">
+        <h1>Remeber Game</h1>
+        <div>
+            <p>Score: {score}</p>
+            <p>Best Score: {bestscore}</p>
+        </div>
+        
+    </div>
+
     <div className="grid">
-        {images.map((img) => (
+        {deck.map((img) => (
         <div key={img.id}>
           <img src={img.src} alt={img.name} onClick={() => handleclick(img.id)} />
           <p>{img.name} – ID: {img.id}</p>
         </div>
       ))}
     </div>
+    <hr/>
+
 
     </>
   );
