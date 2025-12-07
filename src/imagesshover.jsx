@@ -39,7 +39,6 @@ function Picture() {
         return arrray;
     }
     function funcwin(){
-        console.log("juuuj")
         SetWin(false)
         setClickedIs([])
         setBestScore(0)
@@ -97,7 +96,6 @@ function Picture() {
         </div>
       ))}
     </div>
-    <hr/>
 
 
     </>
